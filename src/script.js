@@ -24,8 +24,33 @@ scene.add(mesh)
 mesh.position.set(0.7,-0.6,1)
 
 //axis helper
+// X axis is red. The Y axis is green. The Z axis is blue.
 const axesHelper = new THREE.AxesHelper();
 scene.add( axesHelper );
+
+// scale
+// mesh.scale.x = 2
+// mesh.scale.y = 0.5
+// mesh.scale.z = 0.5
+// or
+mesh.scale.set(2,0.5,0.5)
+
+const wireframe = new THREE.WireframeGeometry(geometry);
+
+// create black wireframe material
+const wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+
+// create wireframe mesh and add to scene
+const wireframeMesh = new THREE.LineSegments(wireframe, wireframeMaterial);
+mesh.add(wireframeMesh);
+
+// reordering axises
+mesh.rotation.reorder("YXZ")
+mesh.rotation.y = 0.25 * Math.PI
+mesh.rotation.x =0.25 * Math.PI
+// mesh.rotation.z = 0.7 * Math.PI
+// Rotation
+
 
 /**
  * Sizes
@@ -40,9 +65,12 @@ const sizes = {
  */
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
 camera.position.z = 3
-camera.position.y = 1
-camera.position.x = 1
+// camera.position.y = 1
+// camera.position.x = 1
 scene.add(camera)
+
+// camera.lookAt(new THREE.Vector3(3,0,0))
+camera.lookAt(mesh.position)
 
 // console.log(mesh.position.distanceTo(camera.position))
 
